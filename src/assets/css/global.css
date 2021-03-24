@@ -1,0 +1,27 @@
+/* 全局样式 */
+html,
+body,
+#app {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+}
+
+
+
+/* 解决级联选择框的问题 */
+div .el-scrollbar__wrap {
+    height: 300px !important
+}
+
+/* 步骤条 */
+.el-steps {
+    margin: 15px 0;
+}
+
+.el-step__title {
+    font-size: 13px;
+}
+.ql-editor{
+    min-height: 300px;
+}
