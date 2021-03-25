@@ -1,16 +1,16 @@
 <template>
     <div>
         <breadcrumb :name = getName></breadcrumb>
-        <card @select="select" @refresh="refresh"></card>
-        <user-table :userList="userList" @changeUserState="changeUserState" @refresh="refresh"></user-table>
+        <user-card @select="select" @refresh="refresh"></user-card>
+        <user-list :userList="userList" @changeUserState="changeUserState" @refresh="refresh"></user-list>
         <pagination :queryInfo="queryInfo" :total="total" @setNewSize="setNewSize" @setNewPage="setNewPage"></pagination>
     </div>
 </template>
 
 <script>
     import Breadcrumb from "../../components/breadcrumb/Breadcrumb";
-    import Card from "../../components/card/Card";
-    import UserTable from "../../components/table/UserTable";
+    import UserCard from "../../components/card/UserCard";
+    import UserList from "../../components/list/UserList";
     import Pagination from "../../components/pagination/Pagination";
     import {getUserList,setUserState} from "../../network/users";
 
@@ -18,8 +18,8 @@
         name: "Users",
         components: {
             Breadcrumb,
-            Card,
-            UserTable,
+            UserCard,
+            UserList,
             Pagination
         },
         data() {
@@ -27,7 +27,7 @@
                 queryInfo: {
                     query: '',
                     pagenum: 1,
-                    pagesize: 2
+                    pagesize: 5
                 },
                 total: 0,
                 userList: []

@@ -15,13 +15,13 @@
                 <template slot-scope="scope">
                     <el-button type="primary" icon="el-icon-edit" size="mini" @click="edit(scope.row.id)"></el-button>
                     <el-button type="danger" icon="el-icon-delete" size="mini" @click="remove(scope.row.id)"></el-button>
-                    <el-button type="warning" icon="el-icon-setting" size="mini"></el-button>
+                    <el-button type="warning" icon="el-icon-setting" size="mini" @click="setRole(scope.row)"></el-button>
                 </template>
             </el-table-column>
         </el-table>
         <el-dialog
                 @close="closeDialog"
-                title="提示"
+                title="修改用户"
                 :visible.sync="dialogVisible1"
                 width="30%">
             <el-form ref="userInfo" :model="userInfo" label-width="80px">
@@ -40,14 +40,35 @@
                 <el-button type="primary" @click="editUserInfo">确 定</el-button>
             </span>
         </el-dialog>
+        <el-dialog
+                @close="closeDialog"
+                title="修改角色"
+                :visible.sync="dialogVisible2"
+                width="30%">
+            <p>当前用户:{{userInfo.username}}</p>
+            <p>当前角色:{{userInfo.role_name}}</p>
+            <el-select v-model="id" placeholder="请选择">
+                <el-option
+                        v-for="item in roles"
+                        :key="item.id"
+                        :label="item.roleName"
+                        :value="item.id">
+                </el-option>
+            </el-select>
+            <span slot="footer" class="dialog-footer">
+                <el-button @click="dialogVisible2 = false">取 消</el-button>
+                <el-button type="primary" @click="submitRole">确 定</el-button>
+            </span>
+        </el-dialog>
     </div>
 </template>
 
 <script>
     import {queryUserInfo,editUserInfo,removeUser} from "../../network/users";
+    import {getRolesList,submitRole} from "../../network/roles";
 
     export default {
-        name: "UserTable",
+        name: "UserList",
         props: {
             userList: {
                 type: Array,
@@ -59,12 +80,10 @@
         data() {
             return {
                 dialogVisible1 :false,
-                userInfo:{
-                    id: 0,
-                    username: '',
-                    email: '',
-                    mobile: ''
-                }
+                dialogVisible2: false,
+                userInfo:{},
+                roles: [],
+                id: ''
             }
         },
         methods: {
@@ -99,7 +118,8 @@
                 });
             },
             closeDialog() {
-              this.$refs.userInfo.resetFields()
+                this.userInfo = {}
+                this.id = ''
             },
             editUserInfo() {
                 editUserInfo(this.userInfo).then(res => {
@@ -108,6 +128,21 @@
                     }
                     this.$message.success('修改成功!')
                     this.dialogVisible1 = false
+                    this.$emit('refresh')
+                })
+            },
+            setRole(userInfo) {
+                this.dialogVisible2 = true
+                this.userInfo = userInfo
+                getRolesList().then(res => {
+                    this.roles = res.data.data
+                })
+            },
+            submitRole() {
+                submitRole(this.userInfo.id,this.id).then(res => {
+                    if(res.data.meta.status !== 200) return this.$message.error('修改失败')
+                    this.$message.success('修改成功')
+                    this.dialogVisible2 = false
                     this.$emit('refresh')
                 })
             }

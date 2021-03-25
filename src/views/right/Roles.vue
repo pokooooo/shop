@@ -1,14 +1,14 @@
 <template>
     <div>
         <breadcrumb :name="getName"></breadcrumb>
-        <roles-list :rolesList="rolesList"></roles-list>
+        <roles-list :rolesList="rolesList" @refresh="refresh"></roles-list>
     </div>
 </template>
 
 <script>
     import {getRolesList} from "../../network/roles";
     import Breadcrumb from "../../components/breadcrumb/Breadcrumb";
-    import RolesList from "../../components/roleslist/RolesList";
+    import RolesList from "../../components/list/RolesList";
 
     export default {
         name: "Roles",
@@ -26,6 +26,9 @@
                 getRolesList().then(res => {
                     this.rolesList = res.data.data
                 })
+            },
+            refresh() {
+                this.getRolesList()
             }
         },
         computed: {

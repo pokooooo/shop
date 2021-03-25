@@ -9,7 +9,7 @@
 <script>
     import {getRightsList} from '../../network/rights'
     import Breadcrumb from "../../components/breadcrumb/Breadcrumb";
-    import RightsList from "../../components/rightslist/RightList"
+    import RightsList from "../../components/list/RightList"
 
     export default {
         name: "Rights",

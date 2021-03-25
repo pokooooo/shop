@@ -33,9 +33,9 @@
                 </el-form-item>
             </el-form>
             <span slot="footer" class="dialog-footer">
-    <el-button @click="dialogVisible = false">取 消</el-button>
-    <el-button type="primary" @click="addUser">确 定</el-button>
-  </span>
+                <el-button @click="dialogVisible = false">取 消</el-button>
+                <el-button type="primary" @click="addUser">确 定</el-button>
+            </span>
         </el-dialog>
     </div>
 </template>
@@ -44,7 +44,7 @@
     import {addUser} from "../../network/users";
 
     export default {
-        name: "Card",
+        name: "UserCard",
         data() {
             return {
                 text: '',
