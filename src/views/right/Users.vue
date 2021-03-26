@@ -1,8 +1,10 @@
 <template>
     <div>
         <breadcrumb :name = getName></breadcrumb>
-        <user-card @select="select" @refresh="refresh"></user-card>
-        <user-list :userList="userList" @changeUserState="changeUserState" @refresh="refresh"></user-list>
+        <el-card>
+            <user-card @select="select" @refresh="refresh"></user-card>
+            <user-list :userList="userList" @changeUserState="changeUserState" @refresh="refresh"></user-list>
+        </el-card>
         <pagination :queryInfo="queryInfo" :total="total" @setNewSize="setNewSize" @setNewPage="setNewPage"></pagination>
     </div>
 </template>

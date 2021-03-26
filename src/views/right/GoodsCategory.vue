@@ -1,7 +1,10 @@
 <template>
     <div>
         <breadcrumb :name="getName"></breadcrumb>
-        {{cateList}}
+        <el-card>
+            <cate-card @refresh="refresh"></cate-card>
+            <cate-list :cateList="cateList"></cate-list>
+        </el-card>
         <pagination :queryInfo="queryInfo" :total="total" @setNewSize="setNewSize" @setNewPage="setNewPage"></pagination>
     </div>
 </template>
@@ -11,12 +14,16 @@
 
     import Breadcrumb from "../../components/breadcrumb/Breadcrumb";
     import Pagination from "../../components/pagination/Pagination";
+    import CateCard from "../../components/card/CateCard";
+    import CateList from "../../components/list/CateList";
 
     export default {
         name: "GoodsCategory",
         components: {
             Breadcrumb,
-            Pagination
+            Pagination,
+            CateCard,
+            CateList
         },
         data() {
             return {
@@ -32,7 +39,6 @@
         methods: {
             getCateList() {
                 getCateList(this.queryInfo).then(res => {
-                    console.log(res);
                     this.cateList = res.data.data.result
                     this.total = res.data.data.total
                 })
@@ -45,6 +51,9 @@
                 this.queryInfo.pagenum = newPage
                 this.getCateList()
             },
+            refresh() {
+                this.getCateList()
+            }
         },
         computed: {
             getName() {

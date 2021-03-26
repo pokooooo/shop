@@ -7,3 +7,11 @@ export function getCateList(queryInfo) {
         params: queryInfo
     })
 }
+
+export function submitCate(cate) {
+    return request({
+        url: 'categories',
+        method: 'post',
+        data: cate
+    })
+}

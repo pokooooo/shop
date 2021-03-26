@@ -1,17 +1,15 @@
 <template>
     <div>
-        <el-card>
-            <el-row :gutter="20">
-                <el-col :span="8">
-                    <el-input placeholder="请输入内容" v-model="text" @clear="select" clearable>
-                        <el-button slot="append" icon="el-icon-search" @click="select"></el-button>
-                    </el-input>
-                </el-col>
-                <el-col :span="4">
-                    <el-button type="primary" @click="dialogVisible = true">添加用户</el-button>
-                </el-col>
-            </el-row>
-        </el-card>
+        <el-row :gutter="20">
+            <el-col :span="8">
+                <el-input placeholder="请输入内容" v-model="text" @clear="select" clearable>
+                    <el-button slot="append" icon="el-icon-search" @click="select"></el-button>
+                </el-input>
+            </el-col>
+            <el-col :span="4">
+                <el-button type="primary" @click="dialogVisible = true">添加用户</el-button>
+            </el-col>
+        </el-row>
         <el-dialog
                 title="添加用户"
                 :visible.sync="dialogVisible"
@@ -98,7 +96,5 @@
 </script>
 
 <style scoped>
-    .el-card {
-        box-shadow: 0 1px 1px rgba(0, 0, 0, 0.15) !important;
-    }
+
 </style>
