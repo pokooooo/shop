@@ -51,8 +51,26 @@ const routes = [
         name: 'params',
         path: '/params',
         component: () => import('../views/right/GoodsParams')
+      },
+      {
+        name:'goods',
+        path: '/goods',
+        component: () => import('../views/right/Goods')
+      },
+      {
+        path: '/goods/add',
+        component: () => import('../views/right/Add')
+      },
+      {
+        name: 'orders',
+        path: '/orders',
+        component: () => import('../views/right/Orders')
+      },
+      {
+        name: 'reports',
+        path: '/reports',
+        component: () => import('../views/right/Report')
       }
-
     ]
   }
 

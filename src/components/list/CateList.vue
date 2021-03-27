@@ -1,7 +1,7 @@
 <template>
     <div>
         <tree-table :data="cateList" :columns="columns" :selection-type="false" :expand-type="false" show-index
-        border class="tree-table">
+        border class="tree-table" stripe>
             <template #is="scope">
                 <i class="el-icon-success" v-if="!scope.row.cat_deleted" style="color: lightgreen"></i>
                 <i class="el-icon-error" v-else style="color: red"></i>

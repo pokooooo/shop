@@ -30,7 +30,7 @@
 </template>
 
 <script>
-    import {getCateList,submitCate} from "../../network/goods";
+    import {getCateList,submitCate} from "../../network/cates";
 
     export default {
         name: "CateCard",

@@ -1,8 +1,8 @@
 import {request} from "./request";
 
-export function getGoodsList(queryInfo) {
+export function getOrdersList(queryInfo) {
     return request({
-        url: 'goods',
+        url:'orders',
         method: 'get',
         params: queryInfo
     })

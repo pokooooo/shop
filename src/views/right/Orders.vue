@@ -1,58 +1,58 @@
 <template>
     <div>
         <breadcrumb :name="getName"></breadcrumb>
-        <el-card>
-            <cate-card @refresh="refresh"></cate-card>
-            <cate-list :cateList="cateList"></cate-list>
-        </el-card>
+        <orders-card @select="select"></orders-card>
+        <order-list :ordersList="ordersList"></order-list>
         <pagination :queryInfo="queryInfo" :total="total" @setNewSize="setNewSize" @setNewPage="setNewPage"></pagination>
     </div>
 </template>
 
 <script>
-    import {getCateList} from "../../network/cates";
+    import {getOrdersList} from "../../network/orders";
 
     import Breadcrumb from "../../components/breadcrumb/Breadcrumb";
     import Pagination from "../../components/pagination/Pagination";
-    import CateCard from "../../components/card/CateCard";
-    import CateList from "../../components/list/CateList";
+    import OrdersCard from "../../components/card/OrdersCard";
+    import OrderList from "../../components/list/OrderList";
+
 
     export default {
-        name: "GoodsCategory",
+        name: "Orders",
         components: {
             Breadcrumb,
             Pagination,
-            CateCard,
-            CateList
+            OrdersCard,
+            OrderList
         },
         data() {
             return {
-                queryInfo:{
-                    type: 3,
+                queryInfo: {
+                    query: '',
                     pagenum: 1,
-                    pagesize:5
+                    pagesize: 5
                 },
-                cateList: [],
-                total: 0
+                total: 0,
+                ordersList: []
             }
         },
         methods: {
-            getCateList() {
-                getCateList(this.queryInfo).then(res => {
-                    this.cateList = res.data.data.result
+            getOrdersList() {
+                getOrdersList(this.queryInfo).then(res => {
+                    this.ordersList = res.data.data.goods
                     this.total = res.data.data.total
                 })
             },
             setNewSize(newSize) {
                 this.queryInfo.pagesize = newSize
-                this.getCateList()
+                this.getOrdersList()
             },
             setNewPage(newPage) {
                 this.queryInfo.pagenum = newPage
-                this.getCateList()
+                this.getOrdersList()
             },
-            refresh() {
-                this.getCateList()
+            select(text) {
+                this.queryInfo.query = text
+                this.getOrdersList()
             }
         },
         computed: {
@@ -60,11 +60,10 @@
                 return this.$route.params.name
             }
         },
-        created() {
-            this.getCateList()
+        mounted() {
+            this.getOrdersList()
         }
     }
-
 </script>
 
 <style scoped>

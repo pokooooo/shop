@@ -9,7 +9,7 @@
 </template>
 
 <script>
-    import {getCateList} from "../../network/goods";
+    import {getCateList} from "../../network/cates";
 
     import Breadcrumb from "../../components/breadcrumb/Breadcrumb";
     import ParamsCard from "../../components/card/ParamsCard";
