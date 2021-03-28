@@ -20,6 +20,9 @@ div .el-scrollbar__wrap {
 /* 步骤条 */
 
 
+.el-table {
+    margin-top: 15px;
+}
 
 .ql-editor{
     min-height: 300px;

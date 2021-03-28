@@ -80,7 +80,7 @@
 
         methods: {
             remove(role,right) {
-                this.$confirm('是否删除该用户?', '提示', {
+                this.$confirm('是否删除该限权?', '提示', {
                     confirmButtonText: '确定',
                     cancelButtonText: '取消',
                     type: 'warning'

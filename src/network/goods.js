@@ -7,3 +7,11 @@ export function getGoodsList(queryInfo) {
         params: queryInfo
     })
 }
+
+export function addGood(addForm) {
+    return request({
+        url: 'goods',
+        method: 'post',
+        data: addForm
+    })
+}

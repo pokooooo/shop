@@ -8,10 +8,18 @@ import './assets/css/global.css'
 import toast from './components/toast'
 import TreeTable from 'vue-table-with-tree-grid'
 import echarts from 'echarts'
+import VueQuillEditor from 'vue-quill-editor'
+
+import 'quill/dist/quill.core.css'
+import 'quill/dist/quill.snow.css'
+import 'quill/dist/quill.bubble.css'
+
 
 Vue.prototype.$echarts = echarts
 
 Vue.component('tree-table', TreeTable)
+
+Vue.use(VueQuillEditor)
 
 Vue.use(toast);
 

@@ -1,9 +1,11 @@
 <template>
     <div>
         <breadcrumb :name="getName"></breadcrumb>
-        <orders-card @select="select"></orders-card>
-        <order-list :ordersList="ordersList"></order-list>
-        <pagination :queryInfo="queryInfo" :total="total" @setNewSize="setNewSize" @setNewPage="setNewPage"></pagination>
+        <el-card>
+            <orders-card @select="select"></orders-card>
+            <order-list :ordersList="ordersList"></order-list>
+            <pagination :queryInfo="queryInfo" :total="total" @setNewSize="setNewSize" @setNewPage="setNewPage"></pagination>
+        </el-card>
     </div>
 </template>
 

@@ -1,8 +1,12 @@
 <template>
     <div>
-        <el-input placeholder="请输入内容" v-model="text" @clear="select" clearable>
-            <el-button slot="append" icon="el-icon-search" @click="select"></el-button>
-        </el-input>
+        <el-row>
+            <el-col :span="8">
+                <el-input placeholder="请输入内容" v-model="text" @clear="select" clearable>
+                    <el-button slot="append" icon="el-icon-search" @click="select"></el-button>
+                </el-input>
+            </el-col>
+        </el-row>
     </div>
 </template>
 

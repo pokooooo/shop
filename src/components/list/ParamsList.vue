@@ -2,7 +2,22 @@
     <div >
         <el-button type="primary" size="mini" :disabled="isDisable" @click="dialogVisible = true">添加属性</el-button>
         <el-table :data="list" border stripe style="margin-top: 15px">
-            <el-table-column type="expand"></el-table-column>
+            <el-table-column type="expand">
+                <template slot-scope="scope">
+                    <el-tag closable v-for="(item,index) in scope.row.attr_vals" :key="index" @close="deleteParam(scope.row,index)">{{item}}</el-tag>
+                    <el-input
+                            class="input-new-tag"
+                            v-if="scope.row.inputVisible"
+                            v-model="scope.row.inputValue"
+                            ref="saveTagInput"
+                            size="small"
+                            @keyup.enter.native="handleInputConfirm(scope.row)"
+                            @blur="handleInputConfirm(scope.row)"
+                    >
+                    </el-input>
+                    <el-button v-else class="button-new-tag" size="small" @click="showInput(scope.row)">+ New Tag</el-button>
+                </template>
+            </el-table-column>
             <el-table-column type="index"></el-table-column>
             <el-table-column label="属性名称" prop="attr_name"></el-table-column>
             <el-table-column label="操作">
@@ -27,7 +42,7 @@
 </template>
 
 <script>
-    import {addParam} from "../../network/params";
+    import {addParam,submitParam,deleteParam} from "../../network/params";
 
     export default {
         name: "ParamsList",
@@ -56,6 +71,27 @@
                     this.$emit('refresh')
                     this.dialogVisible = false
                 })
+            },
+            handleInputConfirm(row) {
+                if(row.inputValue.trim().length === 0) {
+                    row.inputValue = ''
+                    row.inputVisible = false
+                    return
+                }
+                row.attr_vals.push(row.inputValue.trim())
+                submitParam(this.id,row.attr_id,row.attr_name,row.attr_sel,row.attr_vals.join(' ')).then()
+                row.inputValue = ''
+                row.inputVisible = false
+            },
+            showInput(row) {
+                row.inputVisible = true
+                this.$nextTick(_ => {
+                    this.$refs.saveTagInput.$refs.input.focus()
+                })
+            },
+            deleteParam(row,index) {
+                row.attr_vals.splice(index,1)
+                submitParam(this.id,row.attr_id,row.attr_name,row.attr_sel,row.attr_vals.join(' ')).then()
             }
         },
         computed: {
@@ -68,5 +104,10 @@
 </script>
 
 <style scoped>
-
+    .el-tag{
+        margin: 10px;
+    }
+    .input-new-tag{
+        width: 120px;
+    }
 </style>

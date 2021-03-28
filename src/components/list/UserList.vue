@@ -72,7 +72,7 @@
         props: {
             userList: {
                 type: Array,
-                default() {
+                default() {0
                     return []
                 }
             }
@@ -151,7 +151,5 @@
 </script>
 
 <style scoped>
-    .el-table {
-        margin-top: 15px;
-    }
+
 </style>

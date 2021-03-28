@@ -14,11 +14,11 @@
             </el-col>
         </el-row>
         <el-tabs v-model="activeName" @tab-click="tabClick">
-            <el-tab-pane label="动态参数" name="only">
-                <params-list :isDisable="isDisable" :list="onlyList" :id="pid[2]" :name="activeName" @refresh="refresh"></params-list>
-            </el-tab-pane>
-            <el-tab-pane label="静态属性" name="many">
+            <el-tab-pane label="动态参数" name="many">
                 <params-list :isDisable="isDisable" :list="manyList" :id="pid[2]" :name="activeName" @refresh="refresh"></params-list>
+            </el-tab-pane>
+            <el-tab-pane label="静态属性" name="only">
+                <params-list :isDisable="isDisable" :list="onlyList" :id="pid[2]" :name="activeName" @refresh="refresh"></params-list>
             </el-tab-pane>
         </el-tabs>
     </div>
@@ -51,17 +51,26 @@
                     label: 'cat_name',
                     children: 'children'
                 },
-                activeName: 'only',
+                activeName: 'many',
                 onlyList: [],
                 manyList: []
             }
         },
         methods: {
             getParamList() {
+                if(this.pid.length !== 3) {
+                    this.onlyList = []
+                    this.manyList = []
+                    return
+                }
                 getParamList(this.pid[2],this.activeName).then(res =>{
+                    res.data.data.forEach(item => {
+                        item.attr_vals = item.attr_vals ? item.attr_vals.split(' ') : []
+                        item.inputVisible = false
+                        item.inputValue = ''
+                    })
                     if (this.activeName === 'only') this.onlyList = res.data.data
                     else this.manyList = res.data.data
-                    console.log(res.data.data)
                 })
             },
             handleChange() {
